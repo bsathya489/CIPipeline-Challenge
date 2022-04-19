@@ -47,7 +47,26 @@ pipeline{
             }
         }
      
+     stage('deploy to artifactory')
+     {
+     steps{
+     
+     rtUpload (
+    serverId: 'jfrog-server',
+    spec: '''{
+          "files": [
+            {
+              "pattern": "target/*.jar",
+              "target": "art-2022-dev"
+            }
+         ]
+    }''',
+ 
+)
+     }}
+     
     }
+   
     post {  
          always {  
              echo 'This will always run'  
